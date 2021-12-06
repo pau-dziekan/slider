@@ -2,12 +2,14 @@ import React, {useState} from 'react'
 import { SliderData } from './SliderData'
 import {FaArrowAltCircleRight, FaArrowAltCircleLeft} from 'react-icons/fa'
 
+interface ImageSlider {
+    slides:{image:string}[];
+}
 
 
-
-const ImageSlider = (slides:any) => {
+const ImageSlider = ( props:ImageSlider ) => {
     const [current, setCurrent] = useState(0)
-    const length = slides.length
+    const length = props.slides.length
 
     const nextSlide = () => {
         setCurrent(current === length -1 ? 0 : current +1);
@@ -17,7 +19,7 @@ const ImageSlider = (slides:any) => {
         setCurrent(current === 0 ? length -1 : current -1);
     }
 
-     if (!Array.isArray(slides) || slides.length <= 0) {
+     if (!Array.isArray(props.slides) || props.slides.length <= 0) {
          return null;
      }
 
@@ -28,11 +30,12 @@ const ImageSlider = (slides:any) => {
        {SliderData.map((slide, index) => {
            return (
                <div className={index === current ? 'slide active' : 'slide'} key={index}>
-                  {index === current && (<img src={slide.image} className='image'/>)}
-                   
-               </div>
+                  {index === current && (<img src={slide.image} alt="mountains" className='image'/>)}
+                   </div>
            )
        })}
+
+       
        </section>
     )
 }
